@@ -67,7 +67,7 @@ use tokio::main;
 async fn main() {
     init_rate_limiter!(
         default: RuleConfig::new(Duration::seconds(1), 5), // 5 req/s globally
-        max_memory: Some(64 * headed4 * 1024), // 64MB max memory
+        max_memory: Some(64 * 1024 * 1024), // 64MB max memory
         routes: [
             ("/api/login", RuleConfig::new(Duration::minutes(1), 3)), // 3 req/min
             ("/api/public", RuleConfig::new(Duration::seconds(1), 10)), // 10 req/s
