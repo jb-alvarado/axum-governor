@@ -82,7 +82,7 @@ dependencies = [
 
 [[package]]
 name = "axum-governor"
-version = "1.0.2"
+version = "1.0.3"
 dependencies = [
  "axum",
  "futures-util",
@@ -268,8 +268,9 @@ checksum = "92ecc6618181def0457392ccd0ee51198e065e016d1d527a7ac1b6dc7c1f09d2"
 
 [[package]]
 name = "lazy-limit"
-version = "1.0.2"
-source = "git+https://github.com/jb-alvarado/lazy-limit.git#18b1c840052c3df4ad561a4f94a7c57a9be1db47"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e04199ba2a6f7aa619b29789889155a68e51dcd2f8516a21c6a47532e84bcece"
 dependencies = [
  "once_cell",
  "tokio",
