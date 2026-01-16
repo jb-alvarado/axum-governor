@@ -3,12 +3,11 @@
 
 use axum::{
     extract::Path,
-    http::Method,
     routing::{get, post},
     Router,
 };
 use axum_governor::{GovernorConfig, GovernorLayer};
-use lazy_limit::{init_rate_limiter, Duration, RuleConfig};
+use lazy_limit::{init_rate_limiter, Duration, HttpMethod, RuleConfig};
 use real::RealIpLayer;
 use std::net::SocketAddr;
 use tower::ServiceBuilder;
@@ -58,7 +57,7 @@ async fn main() {
             ("/api/public", RuleConfig::new(Duration::seconds(1), 10)), // 10 req/s
             ("/api/premium", RuleConfig::new(Duration::seconds(1), 20)), // 20 req/s
             ("/api/prefix/", RuleConfig::new(Duration::seconds(1), 6).match_prefix(true)), // 6 req/s for route prefix
-            ("/api/contact", RuleConfig::new(Duration::seconds(1), 7).for_methods(vec![Method::POST])), // 6 req/s for HTTP Method
+            ("/api/contact", RuleConfig::new(Duration::seconds(1), 7).for_methods(vec![HttpMethod::POST])), // 6 req/s for HTTP Method
         ]
     )
     .await;

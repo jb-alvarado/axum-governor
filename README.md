@@ -74,7 +74,7 @@ async fn main() {
             ("/api/public", RuleConfig::new(Duration::seconds(1), 10)), // 10 req/s
             ("/api/premium", RuleConfig::new(Duration::seconds(1), 20)), // 20 req/s
             ("/api/prefix/", RuleConfig::new(Duration::seconds(1), 5).match_prefix(true)), // 5 req/s for route prefix
-            ("/api/contact", RuleConfig::new(Duration::seconds(1), 8).for_methods(vec![Method::POST])), // 8 req/s for HTTP Method
+            ("/api/contact", RuleConfig::new(Duration::seconds(1), 8).for_methods(vec![HttpMethod::POST])), // 8 req/s for HTTP Method
         ]
     ).await;
 
@@ -87,7 +87,7 @@ async fn main() {
 Add the `RealIpLayer` and `GovernorLayer` to your Axum router. The `RealIpLayer` must be added **before** the `GovernorLayer` to ensure client IP addresses are available.
 
 ```rust
-use axum::{Router, routing::get, Server};
+use axum::{Router, routing::get};
 use axum_governor::{GovernorLayer, GovernorConfig};
 use real::RealIpLayer;
 use std::net::SocketAddr;

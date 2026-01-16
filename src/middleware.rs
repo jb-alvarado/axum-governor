@@ -1,6 +1,6 @@
 /* src/middleware.rs */
 
-use crate::GovernorConfig;
+use crate::{map_method, GovernorConfig};
 use axum::{
     body::Body,
     http::{Request, Response, StatusCode},
@@ -80,9 +80,9 @@ where
             let path = req.uri().path().to_string();
 
             let allowed = if config.override_mode {
-                lazy_limit::limit_override!(&ip_str, &path, method).await
+                lazy_limit::limit_override!(&ip_str, &path, map_method(method)).await
             } else {
-                lazy_limit::limit!(&ip_str, &path, method).await
+                lazy_limit::limit!(&ip_str, &path, map_method(method)).await
             };
 
             if allowed {
